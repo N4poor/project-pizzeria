@@ -160,6 +160,7 @@ class Product {
 
     thisProduct.id = id;
     thisProduct.data = data;
+    thisProduct.app = app;
     thisProduct.renderInMenu();
     thisProduct.getElements();
     thisProduct.initOrderForm();
@@ -230,7 +231,7 @@ class Product {
       event.preventDefault();
       thisProduct.processOrder();
     });
-
+  
     for(let input of thisProduct.formInputs){
       input.addEventListener('change', function(){
         thisProduct.processOrder();
@@ -239,24 +240,25 @@ class Product {
     thisProduct.cartButton.addEventListener('click', function(event){
       event.preventDefault();
       thisProduct.processOrder();
+      thisProduct.app.cart.add(thisProduct.prepareCartProduct()); // Używamy thisProduct.app
     });
-
+  
     thisProduct.initAmountWidget();
   }
 
   processOrder(){
     const thisProduct = this;
-
+  
     // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
     const formData = utils.serializeFormToObject(thisProduct.form);
     console.log('formData', formData);
-
+  
     // set price to default price
     let price = thisProduct.data.price;
-
+  
     // for every category (param)...
     for(let paramId in thisProduct.data.params){
-
+  
       // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
       const param = thisProduct.data.params[paramId];
       console.log(paramId, param);
@@ -265,10 +267,10 @@ class Product {
         // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
         const option = param.options[optionId];
         console.log(optionId, option);
-
+  
         // Check if the option is selected in the form
         if (formData[paramId] && formData[paramId].includes(optionId)){
-
+  
           // If it is and it's not selected by default, add its price to the product price
           if(!option.default){
             price += option.price;
@@ -278,7 +280,6 @@ class Product {
           if (image) {
             image.classList.add(classNames.menuProduct.imageVisible);
           }
-
         } else {
           // If it's not selected and it's selected by default, subtract its price from the product price
           if(option.default){
@@ -292,9 +293,10 @@ class Product {
         }      
       }
     }
-
+  
+    thisProduct.priceSingle = price; // Dodajemy właściwość priceSingle do thisProduct
     price *= thisProduct.amountWidget.value;
-
+  
     // update calculated price in the HTML
     thisProduct.priceElem.innerHTML = price;
   }
@@ -308,6 +310,58 @@ class Product {
       thisProduct.processOrder();
     });
   }
+
+  addToCart(){
+    const thisProduct = this;
+
+    app.cart.add(thisProduct);
+  }
+
+  prepareCartProduct(){
+    const thisProduct = this;
+  
+    const productSummary = {};
+  
+    productSummary.id = thisProduct.id;
+    productSummary.name = thisProduct.data.name;
+    productSummary.amount = thisProduct.amountWidget.value;
+    productSummary.priceSingle = thisProduct.priceSingle;
+    productSummary.price = thisProduct.priceSingle * productSummary.amount;
+    productSummary.params = thisProduct.prepareCartProductParams();
+  
+    return productSummary;
+  }
+
+  prepareCartProductParams() {
+    const thisProduct = this;
+  
+    const formData = utils.serializeFormToObject(thisProduct.form);
+    const params = {};
+  
+    // for very category (param)
+    for(let paramId in thisProduct.data.params) {
+      const param = thisProduct.data.params[paramId];
+  
+      // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+      params[paramId] = {
+        label: param.label,
+        options: {}
+      };
+  
+      // for every option in this category
+      for(let optionId in param.options) {
+        const option = param.options[optionId];
+        const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+  
+        if(optionSelected) {
+          params[paramId].options[optionId] = option.label;
+        }
+      }
+    }
+  
+    return params;
+  }
+
 }
 
 class Cart {
@@ -329,6 +383,16 @@ class Cart {
 
     thisCart.dom.wrapper = element;
     thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+    thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+  }
+
+  add(menuProduct){
+    const thisCart = this;
+
+    const generatedHTML = templates.cartProduct(menuProduct);
+    const generatedDom = utils.createDOMFromHTML(generatedHTML);
+    thisCart.dom.productList.appendChild(generatedDom);
+    console.log('adding product', menuProduct);
   }
 
   initActions(){
@@ -339,6 +403,7 @@ class Cart {
       thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
     });
   }
+
 }
 
 const app = {
@@ -349,7 +414,7 @@ const app = {
     console.log('thosApp.data:', thisApp.data);
 
     for(const productData in thisApp.data.products){
-      new Product(productData, thisApp.data.products[productData]);
+      new Product(productData, thisApp.data.products[productData], thisApp);
     }
   },
   
@@ -361,7 +426,7 @@ const app = {
 
   initCart: function(){
     const thisApp = this;
-
+  
     const cartElem = document.querySelector(select.containerOf.cart);
     thisApp.cart = new Cart(cartElem);
   },
