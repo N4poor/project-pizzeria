@@ -227,6 +227,31 @@
         }
       ],
       "id": 1
+    },
+    {
+      "address": "",
+      "phone": "",
+      "totalPrice": 29,
+      "totalNumber": "1",
+      "deliveryFee": 20,
+      "products": [
+        {
+          "id": "breakfast",
+          "name": "Zia Giulia's Breakfast",
+          "amount": 1,
+          "priceSingle": 9,
+          "price": 9,
+          "params": {
+            "coffee": {
+              "label": "Coffee type",
+              "options": {
+                "latte": "Latte"
+              }
+            }
+          }
+        }
+      ],
+      "id": 2
     }
   ],
   "events": [

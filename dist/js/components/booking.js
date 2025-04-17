@@ -1,41 +1,48 @@
 import {templates, select } from "../settings.js";
 import AmountWidget from "./AmountWidget.js";
+import DatePicker from "./DatePicker.js";
+import HourPicker from "./HourPicker.js";
+
 
 class Booking {
-    constructor(element){
-    const thisBooking = this;
-        thisBooking.render(element);
-        thisBooking.initWidgets();
+    constructor(element) {
+      const thisBooking = this;
+  
+      thisBooking.render(element);
+      thisBooking.initWidgets();
+      thisBooking.getData();
     }
-
-    render(element){
-    const thisBooking = this;   
-        //tworzymy pusty obiekt dom
-        thisBooking.dom = {};
-        //przypisujemy referencje do kontenera
-        thisBooking.dom.wrapper = element;
-        // generujemy HTML z szablonu
-        const generatedHTML = templates.bookingWidget();
-        // Ustawiamy zawartosc
-        thisBooking.dom.wrapper.innerHTML = generatedHTML;
-
-        thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-        thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+  
+    getData() {
+      // ... (bez zmian)
     }
-    initWidgets(){
-        const thisBooking = this;
-       
-        thisBooking.peopleAmountWidget = new AmountWidget(thisBooking.dom.peopleAmount);
-        thisBooking.hoursAmountWidget = new AmountWidget(thisBooking.dom.hoursAmount);
-
-        thisBooking.dom.peopleAmount.addEventListener('updated', function(){
-
-        });
-
-        thisBooking.dom.hoursAmount.addEventListener('updated', function(){
-
-        });
+  
+    render(element) {
+      const thisBooking = this;
+  
+      const generatedHTML = templates.bookingWidget();
+      thisBooking.dom = {};
+      thisBooking.dom.wrapper = element;
+      thisBooking.dom.wrapper.innerHTML = generatedHTML;
+  
+      thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+      thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+  
+      // Get references to date and hour pickers
+      thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+      thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     }
-}
-
-export default Booking;
+  
+    initWidgets() {
+      const thisBooking = this;
+  
+      thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
+      thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+  
+      // Initialize DatePicker and HourPicker
+      thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+      thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
+    }
+  }
+  
+  export default Booking;
