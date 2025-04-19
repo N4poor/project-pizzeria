@@ -95,6 +95,11 @@
     }
   }
   
+  .table.selected {
+    border: 3px solid #7BE495;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+
   .floor-plan {
     position: relative;
     width: 320px;

@@ -1,4 +1,4 @@
-
+/* global dataSource */
 
 const utils = {};
 

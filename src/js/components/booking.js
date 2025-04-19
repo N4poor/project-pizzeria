@@ -8,10 +8,44 @@ import HourPicker from "./HourPicker.js";
 class Booking {
     constructor(element) {
       const thisBooking = this;
-  
+
+      thisBooking.selectedTable = null;
       thisBooking.render(element);
       thisBooking.initWidgets();
       thisBooking.getData();
+    }
+
+    initTables(){
+      const thisBooking = this;
+
+      const floorPlan = thisBooking.dom.wrapper.querySelector('.floor-plan');
+      floorPlan.addEventListener('click', function(event) {
+        const clickedElement = event.target;
+
+        if(!clickedElement.classList.contains('table'))
+          return;
+
+        if(clickedElement.classList.contains(classNames.booking.tableBooked)){
+          alert('this table is already booked!');
+          return;
+        }
+        
+        const tableId = parseInt(clickedElement.getAttribute(settings.booking.tableIdAttribute));
+
+        if(thisBooking.selectedTable === tableId) {
+          clickedElement.classList.remove('selected');
+          thisBooking.selectedTable = null;
+          return;
+        }
+
+        for(let table of thisBooking.dom.tables){
+          table.classList.remove('selected');
+        }
+
+        thisBooking.selectedTable = tableId;
+        clickedElement.classList.add('selected');
+
+      });
     }
   
     getData() {
@@ -153,6 +187,13 @@ class Booking {
           table.classList.remove(classNames.booking.tableBooked);
         }
       }
+
+      for(let table of thisBooking.dom.tables){
+        table.classList.remove('selected');
+      }
+
+      thisBooking.selectedTable = null;
+
     }
 
     render(element) {
@@ -176,6 +217,8 @@ class Booking {
     initWidgets() {
       const thisBooking = this;
   
+      thisBooking.initTables();
+
       thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
       thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
   
@@ -191,7 +234,7 @@ class Booking {
       thisBooking.updateDOM();
     });
   
-    thisBooking.dom.hourPicker.addEventListener('change', function () {
+    thisBooking.dom.hourPicker.addEventListener('input', function () {
       thisBooking.updateDOM();
     });
     
