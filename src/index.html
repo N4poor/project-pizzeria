@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="vendor/range-slider.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 </head>
 <body>
-
   <header class="header">
     <div class="container">
       <div class="header__wrapper">
@@ -21,6 +21,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+            <a href="#home">Home</a>
             <a href="#order">Order</a>
             <a href="#booking">Booking</a>
         </div>
@@ -60,8 +61,8 @@
       </div>
     </div>
   </header>
-
   <div id="pages">
+    <section id="home" class="home-wrapper"></section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -69,7 +70,101 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
-
+  <template id="template-home">
+    <section class="home wrapper">
+      <div class="home__top">
+        <div class="home__buttons">
+          <button class="home__btn home__btn1 order" type="button"><span>ORDER ONLINE</span></button>
+          <button class="home__btn home__btn2 book" type="button"><span>BOO A TABLE</span></button>
+        </div>
+        <div class="home__hours">
+          <p>OPENING HOURS:</p>
+          <p>TUE–SUN, 12PM–12AM</p>
+        </div>
+      </div>
+      <div class="home__testimonials">
+        <div class="carousel" data-flickity='{ "cellAlign": "center", "contain": true, "wrapAround": true, "autoPlay": 3000, "pageDots": true }'>
+          <div class="carousel-cell testimonial">
+            <img src="https://i.postimg.cc/ncnBYhWw/pizza-3.jpg" alt="Customer 1" class="testimonial__img" >
+            <div class="testimonial__text">
+              <h3 class="testimonial__title">Best Service</h3>
+              <p class="testimonial__desc">
+                Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum.
+              </p>
+              <p class="testimonial__author">– Kaslik Amanow</p>
+            </div>
+          </div>
+          <div class="carousel-cell testimonial">
+            <img src="https://i.postimg.cc/ncnBYhWw/pizza-3.jpg" alt="Customer 2" class="testimonial__img" >
+            <div class="testimonial__text">
+              <h3 class="testimonial__title">Fantastic Pizza</h3>
+              <p class="testimonial__desc">
+                Best pizza in town. I never go anywhere else. The crust is crispy and the sauce tastes like Italy.
+              </p>
+              <p class="testimonial__author">– Tony Rizzo</p>
+            </div>
+          </div>
+          <div class="carousel-cell testimonial">
+            <img src="https://i.postimg.cc/ncnBYhWw/pizza-3.jpg" alt="Customer 3" class="testimonial__img" >
+            <div class="testimonial__text">
+              <h3 class="testimonial__title">Loved it!</h3>
+              <p class="testimonial__desc">
+                Amazing flavors and very friendly staff. Perfect for family dinners and romantic nights.
+              </p>
+              <p class="testimonial__author">– Giulia Moretti</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="home__gallery">
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/T2VnDDtD/pizza-4.jpg" alt="Pizza 1" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/Z5RN2D48/pizza-5.jpg" alt="Pizza 2" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/rmSRxBNk/pizza-6.jpg" alt="Pizza 3" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/4xScgbxr/pizza-7.jpg" alt="Pizza 4" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/Z5RN2D48/pizza-5.jpg" alt="Pizza 5" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.postimg.cc/TP5DYLyh/pizza-9.jpg" alt="Pizza 6" >
+          <div class="overlay">
+            <i class="fas fa-heart gallery-icon heart-icon"></i>
+            <i class="fas fa-share-alt gallery-icon share-icon"></i>
+          </div>
+        </div>
+        <a href="https://www.instagram.com" class="home__instagram" target="_blank">
+          View more on Instagram
+        </a>
+      </div>
+    </section>
+  </template>
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
       <div class="widget-amount"> <!-- widget-amount -->
@@ -97,7 +192,6 @@
       </ul>
     </li>
   </script>
-
   <script id="template-menu-product" type="text/x-handlebars-template">
     <article class="product"> <!-- product -->
 
@@ -173,7 +267,6 @@
             {{/each}}
           </div>
         </div>
-
     </article> <!-- .product -->
   </script>
   <script id="template-booking-widget" type="text/x-handlebars-template">
@@ -241,6 +334,7 @@
       </form>
     </div>
   </script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js" type="module"></script>
   <script src="vendor/range-slider.js" type="module"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>

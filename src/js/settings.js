@@ -9,6 +9,7 @@ export const select = {
     cart: '#cart',
     pages: '#pages',               // dodany selektor kontenera stron
     booking: '.booking-wrapper',   // dodany selektor kontenera rezerwacji
+    home: '.home-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -39,6 +40,7 @@ export const select = {
       output: '.output',
     },
   },
+
   cart: {
     productList: '.cart__order-summary',
     toggleTrigger: '.cart__summary',
@@ -64,6 +66,27 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',                  // linki nawigacji
+  },
+};
+
+export const home = {
+  links: {
+    orderOnline: {
+      selector: '.home__btn1',  // Selektor przycisku "Order Online"
+      page: 'order',             // Nazwa podstrony "Order" (bez hasha)
+    },
+    bookTable: {
+      selector: '.home__btn2',  // Selektor przycisku "Book a Table"
+      page: 'booking',          // Nazwa podstrony "Booking"
+    },
+    gallery: {
+      selector: '.home__gallery', // Selektor galerii
+      page: 'gallery',          // Nazwa podstrony "Galeria"
+    },
+    contact: {
+      selector: '.home__contact', // Selektor kontaktu (jeśli istnieje)
+      page: 'contact',          // Nazwa podstrony "Kontakt"
+    },
   },
 };
 
@@ -117,10 +140,14 @@ export const settings = {
     notRepeatParam: 'repeat=false',
     repeatParam: 'repeat_ne=false',
   },
+  
 };
+
+
 
 export const templates = {
   menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),  // nowy szablon
+  homeWidget: Handlebars.compile(document.querySelector('#template-home').innerHTML),
 };
