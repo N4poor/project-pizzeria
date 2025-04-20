@@ -72,11 +72,11 @@ export const select = {
 export const home = {
   links: {
     orderOnline: {
-      selector: '.home__btn1',  // Selektor przycisku "Order Online"
+      selector: '.home__btn1.order',  // Selektor przycisku "Order Online"
       page: 'order',             // Nazwa podstrony "Order" (bez hasha)
     },
     bookTable: {
-      selector: '.home__btn2',  // Selektor przycisku "Book a Table"
+      selector: '.home__btn2.book',  // Selektor przycisku "Book a Table"
       page: 'booking',          // Nazwa podstrony "Booking"
     },
     gallery: {

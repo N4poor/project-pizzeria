@@ -57,6 +57,11 @@ import Home from './components/Home.js';
           window.location.hash = '#/' + id;
         });
       }
+
+      window.addEventListener('hashchange', () => {
+        const newHash = window.location.hash.replace('#/', '');
+        app.activatePage(newHash);
+      });
     },
 
     activatePage: function(pageId){

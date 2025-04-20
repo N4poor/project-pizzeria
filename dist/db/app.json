@@ -277,89 +277,15 @@
       ]
     },
     {
-      "date": "2025-04-19",
-      "hour": "13:00",
+      "date": "2025-04-20",
+      "hour": "16:30",
       "table": 1,
-      "duration": 3,
+      "duration": 2,
       "ppl": 2,
-      "starters": [
-        "water"
-      ],
-      "phone": "1231531351",
-      "address": "asbvuiewufjo@gfajd.ss",
+      "starters": [],
+      "phone": "",
+      "address": "",
       "id": 6
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "16:00",
-      "table": 1,
-      "duration": 3,
-      "ppl": 2,
-      "starters": [
-        "water"
-      ],
-      "phone": "123153112351",
-      "address": "asbvuiewuas3fjo@gfajd.ss",
-      "id": 7
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "12:30",
-      "table": 2,
-      "duration": 1,
-      "ppl": 1,
-      "starters": [],
-      "phone": "",
-      "address": "",
-      "id": 8
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "12:30",
-      "table": 1,
-      "duration": 6,
-      "ppl": 2,
-      "starters": [
-        "bread"
-      ],
-      "phone": "12",
-      "address": "sada",
-      "id": 9
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "17:30",
-      "table": 2,
-      "duration": 6,
-      "ppl": 2,
-      "starters": [
-        "bread"
-      ],
-      "phone": "12",
-      "address": "sada",
-      "id": 10
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "20:00",
-      "table": 1,
-      "duration": 1,
-      "ppl": 1,
-      "starters": [],
-      "phone": "",
-      "address": "",
-      "id": 11
-    },
-    {
-      "date": "2025-04-19",
-      "hour": "20:00",
-      "table": 3,
-      "duration": 1,
-      "ppl": 1,
-      "starters": [],
-      "phone": "123",
-      "address": "123",
-      "id": 12
     }
   ]
 }
